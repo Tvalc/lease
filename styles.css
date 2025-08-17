@@ -1,0 +1,156 @@
+:root {
+    --bg1: hsl(220, 60%, 10%);
+    --bg2: hsl(230, 70%, 22%);
+    --star-color: hsl(200, 80%, 90%);
+    --player-ship-glow: 0 0 32px 8px hsl(180, 100%, 70%);
+    --enemy-ship-glow: 0 0 18px 4px hsl(0, 80%, 56%);
+    --ui-bg: hsla(220, 80%, 9%, 0.89);
+    --ui-accent: hsl(195, 100%, 60%);
+    --ui-danger: hsl(0, 80%, 62%);
+    --ui-success: hsl(100, 60%, 60%);
+    --font: "Orbitron", "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background: radial-gradient(ellipse at top left, var(--bg2) 0%, var(--bg1) 90%);
+    margin: 0;
+    padding: 0;
+    font-family: var(--font);
+    color: #fff;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+#game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+}
+
+#game-canvas {
+    background: transparent;
+    border-radius: 18px;
+    box-shadow: 0 10px 40px 0 hsla(230, 90%, 20%, 0.55), 0 1px 5px 1px #111;
+    outline: none;
+    transition: box-shadow 0.2s;
+    display: block;
+    z-index: 1;
+}
+
+#game-canvas:focus {
+    box-shadow: 0 0 0 3px var(--ui-accent), 0 10px 40px 0 hsla(230, 90%, 20%, 0.55);
+}
+
+#ui-overlay {
+    position: absolute;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    font-family: var(--font);
+}
+
+.ui-bar {
+    position: absolute;
+    top: 24px; left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    z-index: 10;
+    pointer-events: none;
+    font-size: 24px;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 8px #182233, 0 0 2px #000;
+    gap: 32px;
+}
+
+.ui-bar .ui-score,
+.ui-bar .ui-health,
+.ui-bar .ui-lives {
+    margin: 0 12px;
+}
+
+.ui-score {
+    color: var(--ui-accent);
+    font-weight: bold;
+    text-shadow: 0 1px 4px #0af9;
+}
+
+.ui-health {
+    color: var(--ui-success);
+    font-weight: bold;
+}
+
+.ui-lives {
+    color: #fff;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.ui-gameover,
+.ui-win {
+    position: absolute;
+    left: 50%; top: 38%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    background: var(--ui-bg);
+    padding: 36px 48px;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px 2px #000b;
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+    text-align: center;
+    z-index: 999;
+    pointer-events: auto;
+    text-shadow: 0 2px 16px #111, 0 1px 2px #000;
+    animation: popscale 0.7s cubic-bezier(.47,1.64,.41,.8);
+}
+
+@keyframes popscale {
+    0% { transform: translate(-50%,-50%) scale(0.6); opacity: 0.1; }
+    80% { transform: translate(-50%,-50%) scale(1.13); opacity: 1; }
+    100% { transform: translate(-50%,-50%) scale(1); }
+}
+
+.ui-btn {
+    margin-top: 28px;
+    background: linear-gradient(90deg, var(--ui-accent) 0%, #fff 100%);
+    color: #153b57;
+    font-family: var(--font);
+    font-weight: bold;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px #0af6;
+    padding: 12px 32px;
+    cursor: pointer;
+    transition: background 0.18s, transform 0.18s;
+    pointer-events: auto;
+}
+
+.ui-btn:hover,
+.ui-btn:focus {
+    background: linear-gradient(90deg, #fff 0%, var(--ui-accent) 100%);
+    transform: scale(1.05);
+}
+
+.ui-bar .ui-health {
+    text-shadow: 0 1px 8px #7fffd4, 0 0 4px #0f5;
+}
+
+.ui-bar .ui-lives {
+    text-shadow: 0 1px 8px #fff7, 0 0 2px #fff;
+}
+
+@media (max-width: 1200px) {
+    #game-canvas {
+        width: 96vw !important;
+        height: 70vw !important;
+        max-width: 100vw;
+        max-height: 90vh;
+    }
+}
